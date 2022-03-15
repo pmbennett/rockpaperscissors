@@ -44,28 +44,73 @@
                 uNum = 2;
             }
 
-            let result;
             let playerWin;
+            let compWin;
 
             if (cNum == uNum) {
-                result = "It's a tie!";
+                console.log("It's a tie!");
+                return;
             } else if (uNum == 0 && cNum == 1) {
-                result = "You lose! Paper beats Rock";
+                playerWin = false;
+                compWin = true;
+                console.log("You lose! Paper beats Rock");
             } else if (uNum == 1 && cNum == 0) {
-                result = "You win! Paper beats Rock";
+                playerWin = true;
+                compWin = false;
+                console.log("You win! Paper beats Rock");
             } else if (uNum == 1 && cNum == 2) {
-                result = "You lose! Scissors beats Paper";
+                playerWin = false;
+                compWin = true;
+                console.log("You lose! Scissors beats Paper");
             } else if (uNum == 2 && cNum == 1) {
-                result = "You win! Scissors beats Paper";
+                playerWin = true;
+                compWin = false;
+                console.log("You win! Scissors beats Paper");
             } else if (uNum == 2 && cNum == 0) {
-                result = "You lose! Rock beats Scissors";
+                playerWin = false;
+                compWin = true;
+                console.log("You lose! Rock beats Scissors");
             } else if (uNum == 0 && cNum == 2) {
-                result = "You win! Rock beats Scissors";
+                playerWin = true;
+                compWin = false;
+                console.log("You win! Rock beats Scissors");
             }
-            return result;
+
+
+            return playerWin;
         }
 
-        let input = prompt("Enter 'rock', 'paper', or 'scissors'");
-        console.log(playRound(input, compPlay()));
+        function game() {
+            let playerWin = 0;
+            let compWin = 0;
+            for (let i = 0; i < 5; i++) {
+                let input = prompt("Enter 'rock', 'paper', or 'scissors'");
+                let result = playRound(input, compPlay());
+
+                if (result == true) {
+                    playerWin++;
+                } else if (result == false) {
+                    compWin++;
+                }
+            }
+            let finalTally = 0;
+            if (playerWin > compWin) {
+                finalTally = playerWin - compWin;
+            } else if (playerWin < compWin) {
+                finalTally = compWin - playerWin;
+            }
+
+            let finalWinner;
+            if (playerWin > compWin) {
+                finalWinner = `You beat the computer by ${finalTally} point(s), with a score of ${playerWin} to ${compWin}.`;
+            } else if (compWin > playerWin) {
+                finalWinner = `The computer beat you by ${finalTally} point(s), with a score of ${compWin} to ${playerWin}.`;
+            } else {
+                finalWinner = `It was a tie! The final score was ${playerWin} to ${compWin}.`;
+            }
+            return finalWinner;
+        }
+
+        console.log(game());
     </script>
 </body>
